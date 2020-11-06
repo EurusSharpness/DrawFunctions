@@ -15,7 +15,7 @@ namespace DrawFunctions
         public enum MovementState { Up = 1, Down = 2, Left = 3, Right = 4};
         public Background()
         {
-            Origin = new PointF(0f, -5f);
+            Origin = new PointF(0f, 0f);
             Scale = 1;
         }
 

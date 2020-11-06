@@ -42,6 +42,18 @@ namespace DrawFunctions
             Main.Draw(g);
         }
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Down)
+                Main.background.Origin = new PointF(Main.background.Origin.X, Main.background.Origin.Y - 0.5f);
+            if (e.KeyCode == Keys.Up)
+                Main.background.Origin = new PointF(Main.background.Origin.X, Main.background.Origin.Y + 0.5f);
+            if (e.KeyCode == Keys.Left)
+                Main.background.Origin = new PointF(Main.background.Origin.X - 0.5f, Main.background.Origin.Y);
+            if (e.KeyCode == Keys.Right)
+                Main.background.Origin = new PointF(Main.background.Origin.X + 0.5f, Main.background.Origin.Y);
+        }
+
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -52,13 +64,13 @@ namespace DrawFunctions
                 currentPositionX = e.X;
                 currentPositionY = e.Y;
                 if (directionX == Background.MovementState.Left)
-                    Main.background.Origin = new PointF(Main.background.Origin.X - 0.05f, Main.background.Origin.Y);
+                    Main.background.Origin = new PointF(Main.background.Origin.X - 0.2f, Main.background.Origin.Y);
                 else if (directionX == Background.MovementState.Right)
-                    Main.background.Origin = new PointF(Main.background.Origin.X + 0.05f, Main.background.Origin.Y);
+                    Main.background.Origin = new PointF(Main.background.Origin.X + 0.2f, Main.background.Origin.Y);
                 if (directionY == Background.MovementState.Up)
-                    Main.background.Origin = new PointF(Main.background.Origin.X, Main.background.Origin.Y + 0.05f);
+                    Main.background.Origin = new PointF(Main.background.Origin.X, Main.background.Origin.Y + 0.2f);
                 else if (directionY == Background.MovementState.Down)
-                    Main.background.Origin = new PointF(Main.background.Origin.X, Main.background.Origin.Y - 0.05f);
+                    Main.background.Origin = new PointF(Main.background.Origin.X, Main.background.Origin.Y - 0.2f);
 
             }
             else
@@ -66,11 +78,6 @@ namespace DrawFunctions
                 currentPositionX = e.X;
                 currentPositionY = e.Y;
             }
-        }
-
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
-
         }
     }
 }
