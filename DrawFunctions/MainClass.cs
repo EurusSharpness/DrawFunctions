@@ -9,14 +9,15 @@ namespace DrawFunctions
 {
     class MainClass
     {
+        public Background background;
         public MainClass()
         {
-
+            background = new Background();
         }
 
         public void Draw(Graphics g)
         {
-
+            background.Draw(g);
         }
     }
 }
