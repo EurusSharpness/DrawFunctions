@@ -12,6 +12,7 @@ namespace DrawFunctions
         public double Scale { get; set; }
         public PointF Origin { get; set; }
 
+        public static bool Up, Down, Left, Right;
         public enum MovementState { Up = 1, Down = 2, Left = 3, Right = 4};
         public Background()
         {
@@ -20,7 +21,23 @@ namespace DrawFunctions
         }
 
         public int GetSize() => CanvesSize;
-
+        
+        public void MoveBackground()
+        {
+            float speed = 0.5f;
+            if (Up)
+                Origin = new PointF(Origin.X, Origin.Y + speed);
+            if (Down)
+                Origin = new PointF(Origin.X, Origin.Y - speed);
+            if(Right)
+                Origin = new PointF(Origin.X + speed, Origin.Y);
+            if (Left)
+                Origin = new PointF(Origin.X - speed, Origin.Y);
+        }
+        public void ResetDir()
+        {
+            Right = Left = Up = Down = false;
+        }
         public void Draw(Graphics g)
         {
             float deltaX = Form1.WindowSize.Width / (CanvesSize);
@@ -74,6 +91,8 @@ namespace DrawFunctions
                 x += (int)Scale;
                 y -= (int)Scale;
             }
+
+            g.DrawString($"X = {(int)Origin.X}  Y= {(int)Origin.Y}", new Font("", 8),Brushes.Black, 0, 0);
         }
     }
 }
