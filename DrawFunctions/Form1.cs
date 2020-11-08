@@ -34,8 +34,19 @@ namespace DrawFunctions
         {
             ClientSize = new Size(700, 700);
             WindowSize = ClientSize;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.ClientSizeChanged += (object s, EventArgs r) => { WindowSize = ClientSize; };
+            this.MouseWheel += Form1_MouseWheel;
             Main = new MainClass();
+        }
+
+        private void Form1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            var speed = (e.Delta < 0) ? 0.1f : -0.1f;
+            if (this.Main.background.Show + speed > 0 && this.Main.background.Show + speed < 2)
+            {
+                this.Main.background.Show += speed;
+                this.Main.background.Zoomed += (e.Delta < 0) ? -1 : 1;
+            }
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -75,21 +86,12 @@ namespace DrawFunctions
             {
                 var deltaX = currentPositionX - e.X;
                 var deltaY = currentPositionY - e.Y;
-                var directionX = (deltaX) > 0 ? Background.MovementState.Right : Background.MovementState.Left;
-                var directionY = (deltaY) > 0 ? Background.MovementState.Down : Background.MovementState.Up;
                 currentPositionX = e.X;
                 currentPositionY = e.Y;
                 float speedX =  deltaX / 20.0f;
                 float speedY = deltaY / 20.0f;
-                if (directionX == Background.MovementState.Left)
-                    Main.background.Origin = new PointF(Main.background.Origin.X + speedX, Main.background.Origin.Y);
-                else if (directionX == Background.MovementState.Right)
-                    Main.background.Origin = new PointF(Main.background.Origin.X + speedX, Main.background.Origin.Y);
-                if (directionY == Background.MovementState.Up)
-                    Main.background.Origin = new PointF(Main.background.Origin.X, Main.background.Origin.Y - speedY);
-                else if (directionY == Background.MovementState.Down)
-                    Main.background.Origin = new PointF(Main.background.Origin.X, Main.background.Origin.Y - speedY);
-            }
+                Main.background.Origin = new PointF(Main.background.Origin.X + speedX, Main.background.Origin.Y - speedY);
+            }   
             else
             {
                 currentPositionX = e.X;
