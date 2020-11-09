@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DrawFunctions
@@ -34,18 +27,18 @@ namespace DrawFunctions
         {
             ClientSize = new Size(700, 700);
             WindowSize = ClientSize;
-            this.ClientSizeChanged += (object s, EventArgs r) => { WindowSize = ClientSize; };
-            this.MouseWheel += Form1_MouseWheel;
+            ClientSizeChanged += (object s, EventArgs r) => { WindowSize = ClientSize; };
+            MouseWheel += Form1_MouseWheel;
             Main = new MainClass();
         }
 
         private void Form1_MouseWheel(object sender, MouseEventArgs e)
         {
             var speed = (e.Delta < 0) ? 0.1f : -0.1f;
-            if (this.Main.background.Show + speed > 0 && this.Main.background.Show + speed < 2)
+            if (Main.background.Show + speed > 0 && Main.background.Show + speed < 2)
             {
-                this.Main.background.Show += speed;
-                this.Main.background.Zoomed += (e.Delta < 0) ? -1 : 1;
+                Main.background.Show += speed;
+                Main.background.Zoomed += (e.Delta < 0) ? -1 : 1;
             }
         }
 
@@ -88,10 +81,10 @@ namespace DrawFunctions
                 var deltaY = currentPositionY - e.Y;
                 currentPositionX = e.X;
                 currentPositionY = e.Y;
-                float speedX =  deltaX / 20.0f;
+                float speedX = deltaX / 20.0f;
                 float speedY = deltaY / 20.0f;
                 Main.background.Origin = new PointF(Main.background.Origin.X + speedX, Main.background.Origin.Y - speedY);
-            }   
+            }
             else
             {
                 currentPositionX = e.X;
